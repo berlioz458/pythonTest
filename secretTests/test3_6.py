@@ -8,6 +8,8 @@ from selenium import webdriver
 def browser():
     print("\nStart browser for test..")
     browser = webdriver.Chrome()
+    # добавление ожидание прогрузки браузера
+    browser.implicitly_wait(20)
     yield browser
     print("\nQuit browser..")
     browser.quit()
@@ -17,14 +19,14 @@ def browser():
 def test_guest_should_see_login_link(browser, lesson):
     link = "https://stepik.org/lesson/{}/step/1".format(lesson)
     browser.get(link)
-    time.sleep(5)
+    # time.sleep(5)
     input_answer = browser.find_element_by_css_selector("textarea.ember-view")
     answer = math.log(int(time.time()))
     input_answer.send_keys(str(answer))
     btn = browser.find_element_by_css_selector("button.submit-submission")
-    time.sleep(2)
+    # time.sleep(2)
     btn.click()
-    time.sleep(3)
+    # time.sleep(3)
     text_box = browser.find_element_by_css_selector("pre.smart-hints__hint")
     text_pass = text_box.text
 
